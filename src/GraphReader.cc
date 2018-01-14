@@ -6,7 +6,7 @@
 
 namespace graph {
 
-std::shared_ptr<Graph> GraphReader::Read(std::string filename) {
+bool GraphReader::Read(std::string filename, std::shared_ptr<Graph> &graph) {
   // Open file
   file_.open(filename, std::ios::in);
 
@@ -14,18 +14,21 @@ std::shared_ptr<Graph> GraphReader::Read(std::string filename) {
     return false;
 
   // Read values
-  // TODO: Check if input is correct
   size_t size;
   file_ >> size;
 
-  std::shared_ptr<Graph> graph(new Graph(size));
+  graph.reset(new Graph(size));
 
   size_t first, second;
 
   while (file_ >> first >> second)
-    graph->AddEdge(first, second);
+    if(!graph->AddEdge(first, second)) {
+      graph.reset();
+      return false;
+    }
 
-  return graph;
+  file_.close();
+  return true;
 }
 
 } // namespace graph

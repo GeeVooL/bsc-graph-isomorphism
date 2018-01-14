@@ -17,7 +17,7 @@ class GraphReader {
  public:
   GraphReader() = default;
   ~GraphReader() = default;
-  std::shared_ptr<Graph> Read(std::string filename);
+  bool Read(std::string filename, std::shared_ptr<Graph> &graph);
 
  private:
   std::fstream file_;
