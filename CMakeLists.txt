@@ -1,8 +1,15 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 2.6)
 project(GraphIsomorphism)
-set(CMAKE_CXX_STANDARD 11)
+
+include(CTest)
+enable_testing()
+
+include_directories("${PROJECT_SOURCE_DIR}/src")
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -Wall -pedantic -Wextra -Werror")
 
-include_directories(${PROJECT_SOURCE_DIR}/src)
-set(SOURCE_FILES src/main.cc src/Graph.cc src/Graph.h src/GraphReader.cc src/GraphReader.h)
-add_executable(GraphIsomorphism ${SOURCE_FILES})
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ")
+
+add_subdirectory(src)
+add_subdirectory(tests)
