@@ -75,10 +75,7 @@ bool Graph::CompareDegreeSequences(Graph &other) {
     oth_degrees.push_back(other.vertexes_[i]->GetDegree());
   }
 
-  std::sort(org_degrees.begin(), org_degrees.end());
-  std::sort(oth_degrees.begin(), oth_degrees.end());
-
-  return org_degrees == oth_degrees;
+  return std::is_permutation(org_degrees.begin(), org_degrees.end(), oth_degrees.begin());
 }
 
 bool Graph::CompareVertexes(Graph &other) {
@@ -116,14 +113,12 @@ bool Graph::Vertex::Compare(const Graph::Vertex &other) const {
   std::vector<size_t> org_ids;
   for (const std::shared_ptr<Vertex> &ptr : neighbours_)
     org_ids.push_back(ptr->id_);
-  std::sort(org_ids.begin(), org_ids.end());
 
-  std::vector<size_t> oth_ids;
-  for (const std::shared_ptr<Vertex> &ptr : neighbours_)
-    oth_ids.push_back(ptr->id_);
-  std::sort(oth_ids.begin(), oth_ids.end());
+  for (const std::shared_ptr<Vertex> &ptr : other.neighbours_)
+    if (std::find(org_ids.begin(), org_ids.end(), ptr->id_) == org_ids.end())
+      return false;
 
-  return org_ids == oth_ids;
+  return true;
 }
 size_t Graph::Vertex::GetDegree() const {
   return degree_;
