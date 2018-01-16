@@ -189,5 +189,24 @@ BOOST_AUTO_TEST_CASE(CheckIsomorphism6)
   BOOST_CHECK(g.AreIsomorphic(h, dummy));
 }
 
+BOOST_AUTO_TEST_CASE(CheckIsomorphism7)
+{
+  Graph g(3);
+  g.AddEdge(0, 0);
+  g.AddEdge(1, 1);
+  g.AddEdge(2, 2);
+
+  Graph h(3);
+  h.AddEdge(1, 1);
+  h.AddEdge(0, 0);
+  h.AddEdge(2, 2);
+  h.AddEdge(2, 0);
+
+  std::vector<size_t> dummy;
+  BOOST_CHECK(g.GetEdgesCount() == 3);
+  BOOST_CHECK(h.GetEdgesCount() == 4);
+  BOOST_CHECK(!g.AreIsomorphic(h, dummy));
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
