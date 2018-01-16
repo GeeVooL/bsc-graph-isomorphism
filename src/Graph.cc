@@ -19,10 +19,10 @@ bool Graph::AddEdge(size_t first_id, size_t second_id) {
   if (first_id >= size_ || second_id >= size_)
     return false;
 
+  // Check validity only once so method won't return false if adding loop edge, i.e. (1, 1)
   if (!vertexes_[first_id]->AddNeighbour(vertexes_[second_id]))
     return false;
-  if (!vertexes_[second_id]->AddNeighbour(vertexes_[first_id]))
-    return false;
+  vertexes_[second_id]->AddNeighbour(vertexes_[first_id]);
 
   ++edges_;
   return true;
