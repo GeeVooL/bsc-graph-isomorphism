@@ -127,4 +127,67 @@ BOOST_AUTO_TEST_CASE(CheckIsomorphism3)
   BOOST_CHECK(g.AreIsomorphic(h, dummy));
 }
 
+BOOST_AUTO_TEST_CASE(CheckIsomorphism4)
+{
+  Graph g(7);
+  g.AddEdge(0, 2);
+  g.AddEdge(0, 6);
+  g.AddEdge(0, 5);
+  g.AddEdge(1, 6);
+  g.AddEdge(1, 4);
+  g.AddEdge(2, 3);
+  g.AddEdge(3, 4);
+  g.AddEdge(5, 6);
+
+  Graph h(7);
+  h.AddEdge(0, 1);
+  h.AddEdge(0, 5);
+  h.AddEdge(1, 3);
+  h.AddEdge(2, 3);
+  h.AddEdge(2, 6);
+  h.AddEdge(4, 2);
+  h.AddEdge(4, 6);
+  h.AddEdge(5, 6);
+
+  std::vector<size_t> dummy;
+  BOOST_CHECK(g.AreIsomorphic(h, dummy));
+}
+
+BOOST_AUTO_TEST_CASE(CheckIsomorphism5)
+{
+  Graph g(3);
+  g.AddEdge(0, 0);
+  g.AddEdge(1, 1);
+  g.AddEdge(2, 2);
+
+  Graph h(3);
+  h.AddEdge(1, 1);
+  h.AddEdge(0, 0);
+  h.AddEdge(2, 2);
+
+  std::vector<size_t> dummy;
+  BOOST_CHECK(g.GetEdgesCount() == 3);
+  BOOST_CHECK(g.AreIsomorphic(h, dummy));
+}
+
+BOOST_AUTO_TEST_CASE(CheckIsomorphism6)
+{
+  Graph g(3);
+  g.AddEdge(0, 0);
+  g.AddEdge(1, 1);
+  g.AddEdge(2, 2);
+  g.AddEdge(1, 2);
+
+  Graph h(3);
+  h.AddEdge(1, 1);
+  h.AddEdge(0, 0);
+  h.AddEdge(2, 2);
+  h.AddEdge(2, 0);
+
+  std::vector<size_t> dummy;
+  BOOST_CHECK(g.GetEdgesCount() == 4);
+  BOOST_CHECK(g.AreIsomorphic(h, dummy));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END()
